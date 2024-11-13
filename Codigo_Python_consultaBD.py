@@ -215,7 +215,12 @@ def main():
 
         # Teste de atualização e exclusão
         atualizar_dados(conn, sensor_id=1, new_humidity=60.0)
+
+        ler_dados(conn)
+
         excluir_dados(conn, sensor_id=1)
+
+        ler_dados(conn)
 
         # Geração do dashboard
         gerar_dashboard(conn)
