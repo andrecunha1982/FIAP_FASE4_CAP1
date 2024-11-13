@@ -1,7 +1,7 @@
 import oracledb
 import pandas as pd
 import matplotlib.pyplot as plt
-
+from datetime import datetime
 
 # Conexão com o Oracle
 def conectar_oracle():
@@ -10,8 +10,8 @@ def conectar_oracle():
             user="admin",
             password="FIAPfiap2024",
             dsn="fiap2024_low",
-            config_dir=r"C:\Users\gabi_\Downloads\wallet",
-            wallet_location=r"C:\Users\gabi_\Downloads\wallet",
+            config_dir=r"C:\opt\OracleCloud\MYDB",
+            wallet_location=r"C:\opt\OracleCloud\MYDB",
             wallet_password="FIAPfiap2024"
         )
         print("Conexão com o Oracle estabelecida com sucesso!")
@@ -63,16 +63,12 @@ def carregar_dados_csv(csv_path):
     print("Colunas no arquivo CSV:", df.columns)
     df['sensor_id'] = range(1, len(df) + 1)
 
-    # Convertendo a coluna 'Timestamp' para datetime
+    # Convertendo a coluna 'Timestamp' para datetime (agora utilizando diretamente o formato do CSV)
     try:
-        df['Timestamp'] = pd.to_datetime("2024-08-11 " + df['Timestamp'])
+        df['Timestamp'] = pd.to_datetime(df['Timestamp'], format='%Y/%m/%d %H:%M:%S')
     except Exception as e:
         print(f"Erro ao converter a coluna 'Timestamp': {e}")
 
-    # Substituindo "NAO" por 0 e "SIM" por 1 nas colunas de pH, Fósforo e Potássio
-    df['pH'] = df['pH'].replace({"NAO": 0, "SIM": 1}).astype(float)
-    df['Fósforo'] = df['Fósforo'].replace({"NAO": 0, "SIM": 1}).astype(int)
-    df['Potássio'] = df['Potássio'].replace({"NAO": 0, "SIM": 1}).astype(int)
     return df
 
 
@@ -81,13 +77,16 @@ def inserir_dados_csv(conn, df):
     cursor = conn.cursor()
     for _, row in df.iterrows():
         try:
+            # Convertendo Timestamp para o formato correto do Oracle
+            timestamp = row['Timestamp'].strftime('%Y-%m-%d %H:%M:%S')  # Formato esperado pelo Oracle
+
             cursor.execute(
                 """
                 INSERT INTO sensores (timestamp, temperature, humidity, ph, phosphorus, potassium, irrigationOn, sensor_id)
-                VALUES (:1, :2, :3, :4, :5, :6, :7, :8)
+                VALUES (TO_TIMESTAMP(:1, 'YYYY-MM-DD HH24:MI:SS'), :2, :3, :4, :5, :6, :7, :8)
                 """,
                 (
-                    row['Timestamp'],
+                    timestamp,
                     float(row['Temperatura']),
                     float(row['Umidade']),
                     float(row['pH']),
@@ -206,7 +205,7 @@ def main():
     if conn:
         criar_tabela(conn)
 
-        df = carregar_dados_csv(r"D:\FIAP\FIAP_FASE3\Arduino.csv")
+        df = carregar_dados_csv(r"C:\Users\I566457\OneDrive - SAP SE\Desktop\Arduino.csv")
         inserir_dados_csv(conn, df)
 
         # Ler dados
@@ -215,12 +214,7 @@ def main():
 
         # Teste de atualização e exclusão
         atualizar_dados(conn, sensor_id=1, new_humidity=60.0)
-
-        ler_dados(conn)
-
         excluir_dados(conn, sensor_id=1)
-
-        ler_dados(conn)
 
         # Geração do dashboard
         gerar_dashboard(conn)
