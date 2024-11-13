@@ -47,72 +47,79 @@ Umidade: Sensor DHT22.
 pH: Sensor de intensidade de luz (LDR) simula o sensor de pH.
 Nutrientes P e K: Simulados com botões, representando valores booleanos de presença ou ausência.
 Relé: Representa a bomba de irrigação.
+RTC: Módulo RTC para controle de data e hora de cada registro;
+ 
 2. Microcontrolador ESP32
 O ESP32 coleta os dados dos sensores e determina quando a bomba d’água deve ser acionada. O código foi implementado em C++ e simulado na plataforma Wokwi.
-![image](https://github.com/user-attachments/assets/c8e1aa07-ec04-425e-9b7d-e4adcd8c4de2)
+![image](https://github.com/user-attachments/assets/dc25bdb1-cb25-4d4a-b729-2ee270780969)
 
-
-4. Banco de Dados Oracle
+3. Banco de Dados Oracle
 O banco de dados Oracle armazena os dados dos sensores e os registros de acionamento do relé. A integração é feita através do script Python Codigo_Pyhton_consultaBD.py, que realiza operações CRUD.
 
-5. Dashboard 
+4. Dashboard 
 Para visualização dos dados, foi criado um dashboard com a  biblioteca matplotlib dentro do codigo pyhton:
 
 ![Captura de tela 2024-11-13 101959](https://github.com/user-attachments/assets/ba1efe27-fdfb-492a-adcb-ded18bde056d)
 
 ## Funcionamento
-- Código ESP32
-O código do ESP32, em sketch.ino, configura os sensores e o relé.
-Ele coleta os dados e aplica a lógica de decisão para acionar ou não a bomba d'água.
-Os dados são exibidos no Monitor Serial para fácil acesso e coleta.
-- Integração com Banco de Dados Oracle (Script Python)
-O arquivo Codigo_Pyhton_consultaBD.py conecta-se ao banco de dados Oracle.
-Utiliza o arquivo CSV (Arduino.csv) para carregar dados simulados.
-Realiza operações CRUD (Criar, Ler, Atualizar, Deletar) com as informações do solo.
-Pode ser configurado para registrar o status da irrigação conforme os dados dos sensores.
-- Pré-requisitos
-Python 3.x instalado.
-Bibliotecas cx_Oracle: Para conectar o Python ao Oracle, instale via pip install cx_Oracle.
-import oracledb
-import pandas as pd
-import matplotlib.pyplot as plt
-Wokwi: Para compilar e enviar o código ao ESP32.
-Conta no Oracle Database (pode ser local ou na nuvem).
-- Como Configurar e Rodar o Projeto
+
+ESP32:
+- O código do ESP32, em sketch.ino, configura os sensores e o relé.
+- Ele coleta os dados e aplica a lógica de decisão para acionar ou não a bomba d'água.
+- Os dados são exibidos no Monitor Serial para fácil acesso e coleta.
+
+Integração com Banco de Dados Oracle (Script Python):
+- O arquivo Codigo_Pyhton_consultaBD.py conecta-se ao banco de dados Oracle.
+- Utiliza o arquivo CSV (Arduino.csv) para carregar dados simulados.
+- Realiza operações CRUD (Criar, Ler, Atualizar, Deletar) com as informações do solo.
+- Pode ser configurado para registrar o status da irrigação conforme os dados dos sensores.
+
+Pré-requisitos:
+- Python 3.x instalado.
+- Bibliotecas cx_Oracle: Para conectar o Python ao Oracle, instale via pip install cx_Oracle.
+- import oracledb
+- import pandas as pd
+- import matplotlib.pyplot
+- Wokwi: Para compilar e enviar o código ao ESP32.
+- Conta no Oracle Database (pode ser local ou na nuvem).
+
+### Como Configurar e Rodar o Projeto
+
 1. Configuração do Circuito no Wokwi
 Acesse Wokwi e configure o circuito conforme descrito abaixo:
-
-Copie o Arquivo diagram para obter o ESP e os outros componentes.
-Carregue o código codigo_esp32.ino no ESP32 para monitorar os sensores.
-
-Abra o Monitor Serial para visualizar os dados dos sensores.
+- Copie o Arquivo diagram.json para obter o ESP e os outros componentes.
+- Carregue o código sketch.ino no ESP32 para monitorar os sensores.
+- Abra o Monitor Serial para visualizar os dados dos sensores.
 
 2. Exportação dos Dados
-Copie os dados do Monitor Serial do Wokwi e cole no arquivo Arduino.csv localizado na pasta dados.
-Ajuste os dados conforme necessário para simular um cenário real.
+- Copie os dados do Monitor Serial do Wokwi e cole no arquivo Arduino.csv localizado na pasta dados.
+- Ajuste os dados conforme necessário para simular um cenário real.
+  
 3. Script Python - Codigo_Pyhton_consultaBD.py
-Abra o arquivo Codigo_Pyhton_consultaBD.py e configure a conexão com o banco de dados com os parâmetros corretos.
-Execute o script para importar dados do arquivo CSV e realizar operações CRUD.
+- Abra o arquivo Codigo_Pyhton_consultaBD.py e configure a conexão com o banco de dados com os parâmetros corretos.
+- Execute o script para importar dados do arquivo CSV e realizar operações CRUD.
 
 
 ## Lógica de Decisão da Irrigação
-A bomba de irrigação é acionada com base nos seguintes critérios:
+A bomba de irrigação é acionada com base na Umidade (se a umidade do solo estiver abaixo de um certo limite, a irrigação é ligada).
 
-Umidade: Se a umidade do solo estiver abaixo de um certo limite, a irrigação é ligada.
 Níveis de P e K: Se ambos os botões estiverem pressionados, o sistema assume níveis baixos de nutrientes.
+
 pH: O sensor LDR simula o pH e, dependendo da intensidade da luz, determina o nível de acidez do solo.
+
 Cada critério pode ser ajustado para otimizar o uso da água, economizando recursos e maximizando a produtividade.
 
 ## Documentação Adicional
 
-O vídeo de demonstração do projeto está disponível aqui: .
-Tecnologias Utilizadas
-Microcontrolador ESP32
-Python 3.x
-Oracle Database
-Arduino IDE
-Matplotlib
-Wokwi
+O vídeo de demonstração do projeto está disponível aqui: https://www.youtube.com/watch?v=GPURZ9mwhAU.
+
+## Tecnologias Utilizadas
+- Microcontrolador ESP32
+- Python 3.x
+- Oracle Database
+- Arduino IDE
+- Matplotlib
+- Wokwi
 
 ## Conclusão
 Este projeto demonstra como conectar sensores físicos a uma plataforma digital para otimizar a irrigação agrícola, integrando dados de sensores a um banco de dados e criando um sistema de irrigação inteligente. Essa solução é uma contribuição para o avanço da FarmTech Solutions, com foco na eficiência de recursos hídricos e melhoria da produção agrícola.
