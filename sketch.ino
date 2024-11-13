@@ -31,7 +31,7 @@ void setup() {
   // Inicializando comunicação Serial
   Serial.begin(115200);
 
-  // Configurando o barramento I2C com os pinos SDA e SCL
+  // Configurando o barramento I2C com os pinos SDA e SCL para o RTC
   Wire.begin(SDA_PIN, SCL_PIN);
 
   // Inicializando o RTC
@@ -50,10 +50,9 @@ void setup() {
   pinMode(BUTTON_P, INPUT_PULLUP);
   pinMode(BUTTON_K, INPUT_PULLUP);
 
-  // Inicializando o LCD
-  lcd.begin(20, 4);
-  lcd.init();
-  lcd.backlight();
+  // Inicializando o LCD (com pinos 21 e 22 para o I2C)
+  lcd.begin(20, 4);  // Usando LCD de 20x4
+  lcd.backlight();   // Ativando o retroiluminação do LCD
 
   // Mensagem de boas-vindas
   lcd.setCursor(4, 0);
@@ -69,7 +68,7 @@ void setup() {
 
 void loop() {
   float h = dht.readHumidity();       // Leitura de umidade
-  float t = dht.readTemperature();   // Leitura de temperatura
+  float t = dht.readTemperature();    // Leitura de temperatura
   int ldrValue = analogRead(LDR_PIN); // Leitura do sensor LDR
   float ph = map(ldrValue, 0, 4095, 0, 14); // Conversão do valor para pH
   
@@ -120,5 +119,5 @@ void loop() {
   // Enviando tudo em uma única linha no Serial
   Serial.println(info);
 
-  delay(50);
+  delay(500); // Aumentando o delay para dar tempo ao LCD de atualizar corretamente
 }
