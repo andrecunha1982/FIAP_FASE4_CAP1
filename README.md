@@ -12,6 +12,8 @@ Armazenar dados no banco de dados Oracle e realizar operações CRUD através de
 Estrutura do Projeto
 bash
 Copiar código
+
+
 📂 fase3
 │
 ├── 📁 circuito
@@ -27,6 +29,8 @@ Copiar código
 │   └── link         # Link do video do funcionamento do projeto
 │
 └── README.md                     # Documentação do projeto
+
+
 ###Componentes do Projeto
 1. Sensores (Simulados no Wokwi)
 Umidade: Sensor DHT22.
