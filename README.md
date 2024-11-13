@@ -111,7 +111,7 @@ Cada critério pode ser ajustado para otimizar o uso da água, economizando recu
 
 ## Documentação Adicional
 
-O vídeo de demonstração do projeto está disponível aqui: https://www.youtube.com/watch?v=GPURZ9mwhAU.
+O vídeo de demonstração do projeto está disponível aqui: [https://www.youtube.com/watch?v=7aTtdq6nKZ].
 
 ## Tecnologias Utilizadas
 - Microcontrolador ESP32
