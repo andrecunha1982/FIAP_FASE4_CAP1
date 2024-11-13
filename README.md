@@ -1,10 +1,10 @@
-### FarmTech Solutions - Sistema de Irrigação Inteligente
-Descrição do Projeto
+# FarmTech Solutions - Sistema de Irrigação Inteligente
+## Descrição do Projeto
 Este projeto, desenvolvido para a empresa FarmTech Solutions, é um sistema de irrigação inteligente que monitora dados ambientais (umidade, intensidade de luz para simular pH, e níveis de nutrientes representados por botões) com sensores físicos conectados ao microcontrolador ESP32. Os dados coletados pelos sensores são armazenados em um banco de dados Oracle, e o sistema permite operações CRUD (Criar, Ler, Atualizar e Deletar) sobre esses dados. O objetivo é otimizar a irrigação agrícola, utilizando uma lógica de decisão que controla automaticamente a bomba d’água representada por um relé.
 
 Este README descreve o funcionamento do projeto, a estrutura do código e as instruções de configuração.
 
-### Objetivos do Projeto
+## Objetivos do Projeto
 Monitorar a umidade do solo, níveis de nutrientes (P e K), e o pH (simulado com um sensor de intensidade de luz).
 Controlar automaticamente a irrigação, acionando a bomba d'água (relé) conforme os dados coletados.
 Armazenar dados no banco de dados Oracle e realizar operações CRUD através de um script Python.
@@ -41,7 +41,7 @@ Copiar código
 
 
 
-###Componentes do Projeto
+## Componentes do Projeto
 1. Sensores (Simulados no Wokwi)
 Umidade: Sensor DHT22.
 pH: Sensor de intensidade de luz (LDR) simula o sensor de pH.
@@ -95,7 +95,7 @@ Abra o arquivo Codigo_Pyhton_consultaBD.py e configure a conexão com o banco de
 Execute o script para importar dados do arquivo CSV e realizar operações CRUD.
 
 
-###Lógica de Decisão da Irrigação
+## Lógica de Decisão da Irrigação
 A bomba de irrigação é acionada com base nos seguintes critérios:
 
 Umidade: Se a umidade do solo estiver abaixo de um certo limite, a irrigação é ligada.
@@ -103,7 +103,7 @@ Níveis de P e K: Se ambos os botões estiverem pressionados, o sistema assume n
 pH: O sensor LDR simula o pH e, dependendo da intensidade da luz, determina o nível de acidez do solo.
 Cada critério pode ser ajustado para otimizar o uso da água, economizando recursos e maximizando a produtividade.
 
-Documentação Adicional
+## Documentação Adicional
 
 O vídeo de demonstração do projeto está disponível aqui: .
 Tecnologias Utilizadas
@@ -113,5 +113,6 @@ Oracle Database
 Arduino IDE
 Matplotlib
 Wokwi
-Conclusão
+
+## Conclusão
 Este projeto demonstra como conectar sensores físicos a uma plataforma digital para otimizar a irrigação agrícola, integrando dados de sensores a um banco de dados e criando um sistema de irrigação inteligente. Essa solução é uma contribuição para o avanço da FarmTech Solutions, com foco na eficiência de recursos hídricos e melhoria da produção agrícola.
