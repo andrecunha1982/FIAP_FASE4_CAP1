@@ -62,28 +62,28 @@ Para visualização dos dados, foi criado um dashboard com a  biblioteca matplot
 ![Captura de tela 2024-11-13 101959](https://github.com/user-attachments/assets/ba1efe27-fdfb-492a-adcb-ded18bde056d)
 
 ## Funcionamento
-- Código ESP32
-O código do ESP32, em sketch.ino, configura os sensores e o relé.
-Ele coleta os dados e aplica a lógica de decisão para acionar ou não a bomba d'água.
-Os dados são exibidos no Monitor Serial para fácil acesso e coleta.
 
-- Integração com Banco de Dados Oracle (Script Python)
-O arquivo Codigo_Pyhton_consultaBD.py conecta-se ao banco de dados Oracle.
-Utiliza o arquivo CSV (Arduino.csv) para carregar dados simulados.
-Realiza operações CRUD (Criar, Ler, Atualizar, Deletar) com as informações do solo.
-Pode ser configurado para registrar o status da irrigação conforme os dados dos sensores.
+ESP32:
+- O código do ESP32, em sketch.ino, configura os sensores e o relé.
+- Ele coleta os dados e aplica a lógica de decisão para acionar ou não a bomba d'água.
+- Os dados são exibidos no Monitor Serial para fácil acesso e coleta.
 
-- Pré-requisitos
-Python 3.x instalado.
-Bibliotecas cx_Oracle: Para conectar o Python ao Oracle, instale via pip install cx_Oracle.
-import oracledb
-import pandas as pd
-import matplotlib.pyplot as plt
-Wokwi: Para compilar e enviar o código ao ESP32.
+Integração com Banco de Dados Oracle (Script Python):
+- O arquivo Codigo_Pyhton_consultaBD.py conecta-se ao banco de dados Oracle.
+- Utiliza o arquivo CSV (Arduino.csv) para carregar dados simulados.
+- Realiza operações CRUD (Criar, Ler, Atualizar, Deletar) com as informações do solo.
+- Pode ser configurado para registrar o status da irrigação conforme os dados dos sensores.
 
-Conta no Oracle Database (pode ser local ou na nuvem).
+Pré-requisitos:
+- Python 3.x instalado.
+- Bibliotecas cx_Oracle: Para conectar o Python ao Oracle, instale via pip install cx_Oracle.
+- import oracledb
+- import pandas as pd
+- import matplotlib.pyplot
+- Wokwi: Para compilar e enviar o código ao ESP32.
+- Conta no Oracle Database (pode ser local ou na nuvem).
 
-- Como Configurar e Rodar o Projeto
+### Como Configurar e Rodar o Projeto
 
 1. Configuração do Circuito no Wokwi
 Acesse Wokwi e configure o circuito conforme descrito abaixo:
@@ -114,12 +114,12 @@ Cada critério pode ser ajustado para otimizar o uso da água, economizando recu
 O vídeo de demonstração do projeto está disponível aqui: https://www.youtube.com/watch?v=GPURZ9mwhAU.
 
 ## Tecnologias Utilizadas
-Microcontrolador ESP32
-Python 3.x
-Oracle Database
-Arduino IDE
-Matplotlib
-Wokwi
+- Microcontrolador ESP32
+- Python 3.x
+- Oracle Database
+- Arduino IDE
+- Matplotlib
+- Wokwi
 
 ## Conclusão
 Este projeto demonstra como conectar sensores físicos a uma plataforma digital para otimizar a irrigação agrícola, integrando dados de sensores a um banco de dados e criando um sistema de irrigação inteligente. Essa solução é uma contribuição para o avanço da FarmTech Solutions, com foco na eficiência de recursos hídricos e melhoria da produção agrícola.
