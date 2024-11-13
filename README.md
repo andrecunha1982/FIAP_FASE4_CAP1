@@ -39,11 +39,13 @@ Nutrientes P e K: Simulados com botões, representando valores booleanos de pres
 Relé: Representa a bomba de irrigação.
 2. Microcontrolador ESP32
 O ESP32 coleta os dados dos sensores e determina quando a bomba d’água deve ser acionada. O código foi implementado em C++ e simulado na plataforma Wokwi.
+![image](https://github.com/user-attachments/assets/c8e1aa07-ec04-425e-9b7d-e4adcd8c4de2)
 
-3. Banco de Dados Oracle
+
+4. Banco de Dados Oracle
 O banco de dados Oracle armazena os dados dos sensores e os registros de acionamento do relé. A integração é feita através do script Python Codigo_Pyhton_consultaBD.py, que realiza operações CRUD.
 
-4. Dashboard 
+5. Dashboard 
 Para visualização dos dados, foi criado um dashboard com a  biblioteca matplotlib dentro do codigo pyhton:
 
 ![Captura de tela 2024-11-13 101959](https://github.com/user-attachments/assets/ba1efe27-fdfb-492a-adcb-ded18bde056d)
