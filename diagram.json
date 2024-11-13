@@ -9,7 +9,7 @@
       "id": "btn1",
       "top": 73.4,
       "left": 163.2,
-      "attrs": { "color": "green" }
+      "attrs": { "color": "red" }
     },
     {
       "type": "wokwi-pushbutton",
