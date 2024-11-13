@@ -20,20 +20,25 @@ Copiar código
 ├── 📁 circuito
 
 │   └── sketch.ino         # Código C++ para ESP32
+
 │
 ├── 📁 dados
 
 │   └── Arduino        # Dados coletados dos sensores no formato CSV
+
 │
 ├── 📁 scripts
 
 │   └── Codigo_Pyhton_consultaBD.py         # Script Python para integração com o banco de dados Oracle
+
 │
 ├── 📁 Youtube
 
 │   └── link         # Link do video do funcionamento do projeto
+
 │
 └── README.md                     # Documentação do projeto
+
 
 
 ###Componentes do Projeto
