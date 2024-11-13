@@ -1,7 +1,9 @@
-
 import oracledb
 import pandas as pd
+import matplotlib.pyplot as plt
 
+
+# Conexão com o Oracle
 def conectar_oracle():
     try:
         conn = oracledb.connect(
@@ -18,6 +20,8 @@ def conectar_oracle():
         print(f"Erro ao conectar ao Oracle: {e}")
         return None
 
+
+# Criar tabela
 def criar_tabela(conn):
     if conn:
         cursor = conn.cursor()
@@ -53,19 +57,26 @@ def criar_tabela(conn):
             cursor.close()
 
 
+# Carregar dados do CSV
 def carregar_dados_csv(csv_path):
     df = pd.read_csv(csv_path, delimiter=';')
     print("Colunas no arquivo CSV:", df.columns)
     df['sensor_id'] = range(1, len(df) + 1)
 
+    # Convertendo a coluna 'Timestamp' para datetime
     try:
         df['Timestamp'] = pd.to_datetime("2024-08-11 " + df['Timestamp'])
     except Exception as e:
         print(f"Erro ao converter a coluna 'Timestamp': {e}")
 
+    # Substituindo "NAO" por 0 e "SIM" por 1 nas colunas de pH, Fósforo e Potássio
+    df['pH'] = df['pH'].replace({"NAO": 0, "SIM": 1}).astype(float)
+    df['Fósforo'] = df['Fósforo'].replace({"NAO": 0, "SIM": 1}).astype(int)
+    df['Potássio'] = df['Potássio'].replace({"NAO": 0, "SIM": 1}).astype(int)
     return df
 
 
+# Inserir dados no banco de dados
 def inserir_dados_csv(conn, df):
     cursor = conn.cursor()
     for _, row in df.iterrows():
@@ -92,6 +103,8 @@ def inserir_dados_csv(conn, df):
     print("Dados inseridos com sucesso!")
     cursor.close()
 
+
+# Funções de manipulação dos dados
 def ler_dados(conn):
     cursor = conn.cursor()
     select_sql = "SELECT * FROM sensores"
@@ -104,6 +117,7 @@ def ler_dados(conn):
         print(f"Erro ao ler os dados: {e}")
     finally:
         cursor.close()
+
 
 def atualizar_dados(conn, sensor_id, new_humidity):
     cursor = conn.cursor()
@@ -123,6 +137,7 @@ def atualizar_dados(conn, sensor_id, new_humidity):
     finally:
         cursor.close()
 
+
 def excluir_dados(conn, sensor_id):
     cursor = conn.cursor()
     try:
@@ -141,6 +156,51 @@ def excluir_dados(conn, sensor_id):
         cursor.close()
 
 
+# Função para gerar o dashboard
+def gerar_dashboard(conn):
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT timestamp, temperature, humidity, ph FROM sensores")
+        data = cursor.fetchall()
+
+        timestamps = [row[0] for row in data]
+        temperatures = [row[1] for row in data]
+        humidities = [row[2] for row in data]
+        ph_values = [row[3] for row in data]
+
+        plt.figure(figsize=(12, 8))
+
+        # Gráfico de Temperatura
+        plt.subplot(3, 1, 1)
+        plt.plot(timestamps, temperatures, color='r')
+        plt.title('Temperatura ao longo do tempo')
+        plt.xlabel('Timestamp')
+        plt.ylabel('Temperatura')
+
+        # Gráfico de Umidade
+        plt.subplot(3, 1, 2)
+        plt.plot(timestamps, humidities, color='b')
+        plt.title('Umidade ao longo do tempo')
+        plt.xlabel('Timestamp')
+        plt.ylabel('Umidade')
+
+        # Gráfico de pH
+        plt.subplot(3, 1, 3)
+        plt.plot(timestamps, ph_values, color='g')
+        plt.title('pH ao longo do tempo')
+        plt.xlabel('Timestamp')
+        plt.ylabel('pH')
+
+        plt.tight_layout()
+        plt.show()
+
+    except oracledb.DatabaseError as e:
+        print(f"Erro ao gerar o dashboard: {e}")
+    finally:
+        cursor.close()
+
+
+# Função principal
 def main():
     conn = conectar_oracle()
     if conn:
@@ -153,24 +213,16 @@ def main():
         print("Dados na tabela após inserção:")
         ler_dados(conn)
 
-        # Testando a atualização de dados
-        print("\nAtualizando dados do sensor_id 1...")
+        # Teste de atualização e exclusão
         atualizar_dados(conn, sensor_id=1, new_humidity=60.0)
-
-        # Ler dados para verificar a atualização
-        print("Dados na tabela após atualização:")
-        ler_dados(conn)
-
-        # Testando a exclusão de dados
-        print("\nExcluindo dados do sensor_id 1...")
         excluir_dados(conn, sensor_id=1)
 
-        # Ler dados para verificar a exclusão
-        print("Dados na tabela após exclusão:")
-        ler_dados(conn)
+        # Geração do dashboard
+        gerar_dashboard(conn)
 
         conn.close()
         print("Conexão com o banco de dados encerrada.")
+
 
 if __name__ == "__main__":
     main()
