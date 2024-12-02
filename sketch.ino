@@ -8,7 +8,6 @@
 #define SCL_PIN 27
 
 RTC_DS1307 ds1307_rtc;
-
 LiquidCrystal_I2C lcd(0x27, 20, 4); // Endereço I2C pode ser 0x27 ou 0x3F
 
 // DHT Config
@@ -26,6 +25,9 @@ DHT dht(DHTPIN, DHTTYPE);
 bool fosforoPresente = false;
 bool potassioPresente = false;
 bool irrigationOn = false;
+
+// Buffer para manipulação de strings
+char info[128];
 
 void setup() {
   // Inicializando comunicação Serial
@@ -50,9 +52,9 @@ void setup() {
   pinMode(BUTTON_P, INPUT_PULLUP);
   pinMode(BUTTON_K, INPUT_PULLUP);
 
-  // Inicializando o LCD (com pinos 21 e 22 para o I2C)
-  lcd.begin(20, 4);  // Usando LCD de 20x4
-  lcd.backlight();   // Ativando o retroiluminação do LCD
+  // Inicializando o LCD
+  lcd.begin(20, 4);
+  lcd.backlight();
 
   // Mensagem de boas-vindas
   lcd.setCursor(4, 0);
@@ -67,11 +69,12 @@ void setup() {
 }
 
 void loop() {
-  float h = dht.readHumidity();       // Leitura de umidade
-  float t = dht.readTemperature();    // Leitura de temperatura
-  int ldrValue = analogRead(LDR_PIN); // Leitura do sensor LDR
-  float ph = map(ldrValue, 0, 4095, 0, 14); // Conversão do valor para pH
-  
+  // Leitura de sensores
+  float h = dht.readHumidity(); // Leitura de umidade
+  float t = dht.readTemperature(); // Leitura de temperatura
+  uint16_t ldrValue = analogRead(LDR_PIN); // Leitura do sensor LDR
+  uint8_t ph = map(ldrValue, 0, 4095, 0, 14); // Conversão do valor para pH (otimizado para uint8_t)
+
   // Leitura dos botões
   fosforoPresente = !digitalRead(BUTTON_P);
   potassioPresente = !digitalRead(BUTTON_K);
@@ -80,10 +83,10 @@ void loop() {
   DateTime now = ds1307_rtc.now();
 
   // Lógica de irrigação
-  if (h < 30.0) {
+  if (h < 30.0f) {
     irrigationOn = true;
     digitalWrite(RELAY_PIN, HIGH);
-  } else if (h > 40.0) {
+  } else if (h > 40.0f) {
     irrigationOn = false;
     digitalWrite(RELAY_PIN, LOW);
   }
@@ -91,33 +94,21 @@ void loop() {
   // Atualizando o LCD
   lcd.clear();
   lcd.setCursor(0, 0);
-  lcd.print("T: ");
-  lcd.print(t);
-  lcd.print("C ");
-  lcd.print("U: ");
-  lcd.print(h);
-  lcd.print("%");
-   
+  lcd.printf("T: %.1fC U: %.1f%%", t, h); // Usando printf para strings formatadas
   lcd.setCursor(0, 1);
-  lcd.print("pH: ");
-  lcd.print(ph, 2);
-  
+  lcd.printf("pH: %d", ph);
   lcd.setCursor(0, 2);
-  lcd.print("P: ");
-  lcd.print(fosforoPresente ? "Sim" : "Nao");
-  lcd.print(" K: ");
-  lcd.print(potassioPresente ? "Sim" : "Nao");
+  lcd.printf("P: %s K: %s", fosforoPresente ? "Sim" : "Nao", potassioPresente ? "Sim" : "Nao");
   lcd.setCursor(0, 3);
-  lcd.print("Irrigacao: ");
-  lcd.print(irrigationOn ? "ON" : "OFF");
+  lcd.printf("Irrigacao: %s", irrigationOn ? "ON" : "OFF");
 
-  // Criando o vetor com timestamp e dados
-  String data = String(now.year()) + "/" + String(now.month()) + "/" + String(now.day());
-  String hora = String(now.hour()) + ":" + String(now.minute()) + ":" + String(now.second());
-  String info = data + " " + hora + ";" + String(t) + ";" + String(h) + ";" + String(ph, 2) + ";" + String(fosforoPresente) + ";" + String(potassioPresente) + ";" + String(irrigationOn);
+  // Montando a string para Serial (substitui String por snprintf)
+  snprintf(info, sizeof(info), "%04d/%02d/%02d %02d:%02d:%02d;%.1f;%.1f;%d;%d;%d;%d", 
+           now.year(), now.month(), now.day(), now.hour(), now.minute(), now.second(), 
+           t, h, ph, fosforoPresente, potassioPresente, irrigationOn);
 
-  // Enviando tudo em uma única linha no Serial
+  // Enviando para Serial
   Serial.println(info);
 
-  delay(500); // Aumentando o delay para dar tempo ao LCD de atualizar corretamente
+  delay(500); // Delay de 500 ms
 }
