@@ -21,25 +21,18 @@ Otimização de Memória no ESP32: revisão e otimização do uso das variáveis
 📂 fase04
 │
 ├── 📁 circuito
-
 │   └── sketch.ino         # Código C++ para ESP32
 │   └── diagram.json       # Diagrama do projeto para Wokwi
-
+│   └── libraries.txt      # Bibliotecas C++ utilizadas no projeto
 │
 ├── 📁 dados
-
-│   └── Arduino        # Dados coletados dos sensores no formato CSV
-
+│   └── Arduino.csv        # Dados coletados dos sensores no formato CSV
 │
 ├── 📁 scripts
-
 │   └── Codigo_Pyhton_consultaBD.py         # Script Python para integração com o banco de dados Oracle
-
 │
 ├── 📁 Youtube
-
 │   └── link         # Link do video do funcionamento do projeto
-
 │
 └── README.md                     # Documentação do projeto
 
