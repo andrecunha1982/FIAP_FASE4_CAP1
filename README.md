@@ -5,21 +5,25 @@ Este projeto, desenvolvido para a empresa FarmTech Solutions, é um sistema de i
 Este README descreve o funcionamento do projeto, a estrutura do código e as instruções de configuração.
 
 ## Objetivos do Projeto
-Monitorar a umidade do solo, níveis de nutrientes (P e K), e o pH (simulado com um sensor de intensidade de luz).
-Controlar automaticamente a irrigação, acionando a bomba d'água (relé) conforme os dados coletados.
-Armazenar dados no banco de dados Oracle e realizar operações CRUD através de um script Python.
-(Opcional) Criar visualizações de dados com um dashboard em Python, integração com API pública para previsão meteorológica, e análise estatística com R.
-Estrutura do Projeto
-bash
-Copiar código
+Considerando que na Fase 3 foi desenvolvido um projeto para monitorar a umidade do solo, níveis de nutrientes (P e K), e o pH (simulado com um sensor de intensidade de luz); controlar automaticamente a irrigação, acionando a bomba d'água (relé) conforme os dados coletados; armazenar dados no banco de dados Oracle e realizar operações CRUD através de um script Python; criar visualizações de dados com um dashboard em Python, integração com API pública para previsão meteorológica, e análise estatística com R, essa nova fase será focada nos seguintes desafios:
 
+Incorporar Scikit-learn: utilização da biblioteca Scikit-learn para aprimorar a inteligência do sistema de irrigação automatizado. 
 
-📂 fase
+Implementar Streamlit: aprimoração do dashboard do projeto utilizando Streamlit, criando uma interface interativa onde os dados do sistema de irrigação podem ser visualizados em tempo real.
 
+Adicionar display LCD no Wokwi: implementar um display LCD conectado ao ESP32 no Wokwi, barramento I2C (pinos SDA e SCL), para mostrar as principais métricas em tempo real, umidade, níveis de nutrientes e status da irrigação.
+
+Monitoramento com Serial Plotter: implementação do Serial Plotter para monitorar uma ou mais variáveis do projeto.
+
+Otimização de Memória no ESP32: revisão e otimização do uso das variáveis no código C/C++ do ESP32.
+
+## Estrutura do Projeto:
+📂 fase04
 │
 ├── 📁 circuito
 
 │   └── sketch.ino         # Código C++ para ESP32
+│   └── diagram.json       # Diagrama do projeto para Wokwi
 
 │
 ├── 📁 dados
@@ -52,11 +56,15 @@ RTC: Módulo RTC para controle de data e hora de cada registro;
 2. Microcontrolador ESP32
 O ESP32 coleta os dados dos sensores e determina quando a bomba d’água deve ser acionada. O código foi implementado em C++ e simulado na plataforma Wokwi.
 ![image](https://github.com/user-attachments/assets/dc25bdb1-cb25-4d4a-b729-2ee270780969)
+O projeto pode ser executado neste [link](https://wokwi.com/projects/416204742855791617)
 
 3. Banco de Dados Oracle
 O banco de dados Oracle armazena os dados dos sensores e os registros de acionamento do relé. A integração é feita através do script Python Codigo_Pyhton_consultaBD.py, que realiza operações CRUD.
 
-4. Dashboard 
+############################## EM REVISÃO
+
+
+5. Dashboard 
 Para visualização dos dados, foi criado um dashboard com a  biblioteca matplotlib dentro do codigo pyhton:
 
 ![Captura de tela 2024-11-13 101959](https://github.com/user-attachments/assets/ba1efe27-fdfb-492a-adcb-ded18bde056d)
