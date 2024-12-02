@@ -1,4 +1,4 @@
-# FarmTech Solutions - Sistema de Irrigação Inteligente
+# FarmTech Solutions - Sistema de Irrigação Inteligente (Fase 04)
 ## Descrição do Projeto
 Este projeto, desenvolvido para a empresa FarmTech Solutions, é um sistema de irrigação inteligente que monitora dados ambientais (umidade, intensidade de luz para simular pH, e níveis de nutrientes representados por botões) com sensores físicos conectados ao microcontrolador ESP32. Os dados coletados pelos sensores são armazenados em um banco de dados Oracle, e o sistema permite operações CRUD (Criar, Ler, Atualizar e Deletar) sobre esses dados. O objetivo é otimizar a irrigação agrícola, utilizando uma lógica de decisão que controla automaticamente a bomba d’água representada por um relé.
 
