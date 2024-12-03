@@ -45,7 +45,9 @@ Otimização de Memória no ESP32: revisão e otimização do uso das variáveis
 
 ├── 📁 scripts
 
-│   └── Codigo_Pyhton_consultaBD.py         # Script Python para integração com o banco de dados Oracle
+│   └── ESP32_DataLoad.py              # Script Python para carregar os dados de um CSV (informações extraidas do Monitor Serial do Wokwi)
+
+│   └── FarmTech_MachineLearning.py    # Script Python para buscar os dados no banco Oracle e jogar em um DataFrame Pandas para aplicar as bibliotecas SciKit-Learn e Streamlite
 
 │
 
@@ -98,52 +100,54 @@ Com o apoio de Inteligencia Artificial Generativa, foi executada uma revisão de
 ### 3. Banco de Dados Oracle
 O banco de dados Oracle armazena os dados dos sensores e os registros de acionamento do relé. A integração é feita através do script Python Codigo_Pyhton_consultaBD.py, que realiza operações CRUD.
 
-**############################## EM REVISÃO ##############################**
-
-
-### 5. Dashboard 
-Para visualização dos dados, foi criado um dashboard com a  biblioteca matplotlib dentro do codigo pyhton:
-
-![Captura de tela 2024-11-13 101959](https://github.com/user-attachments/assets/ba1efe27-fdfb-492a-adcb-ded18bde056d)
-
+### 4. Scripts Python
+Foram gerados dois scripts Python: 
+- ESP32_DataLoad.py: Script Python para carregar os dados de um CSV (informações extraidas do Monitor Serial do Wokwi)
+- FarmTech_MachineLearning.py: Script Python para buscar os dados no banco Oracle e jogar em um DataFrame Pandas para aplicar as bibliotecas SciKit-Learn e Streamlit
+- 
 ## Funcionamento
-
 ESP32:
-- O código do ESP32, em sketch.ino, configura os sensores e o relé.
-- Ele coleta os dados e aplica a lógica de decisão para acionar ou não a bomba d'água.
-- Os dados são exibidos no Monitor Serial para fácil acesso e coleta.
+- No Wokwi, utiliza-se os arquivos da pasta circuito para configuração do hardware;
+- Ele coleta os dados e aplica a lógica de decisão para acionar ou não a bomba d'água;
+- Os dados são exibidos no Monitor Serial para fácil acesso, onde é feita uma coleta manual e posterior exportação para um CSV;
 
 Integração com Banco de Dados Oracle (Script Python):
-- O arquivo Codigo_Pyhton_consultaBD.py conecta-se ao banco de dados Oracle.
+- O arquivo ESP32_DataLoad.py conecta-se ao banco de dados Oracle;
 - Utiliza o arquivo CSV (Arduino.csv) para carregar dados simulados.
-- Realiza operações CRUD (Criar, Ler, Atualizar, Deletar) com as informações do solo.
-- Pode ser configurado para registrar o status da irrigação conforme os dados dos sensores.
+- Realiza operações CRUD (Criar, Ler, Atualizar, Deletar) com as informações;
 
-Pré-requisitos:
+Utilização de Machine Learning;
+- O arquivo FarmTech_MachineLearning.py conecta-se ao banco de dados Oracle;
+- A partir dos dados do Banco gera um DataFrame em pandas para facilitar a utilização da biblioteca SciKit-Learn e Streamlit
+
+### Pré-requisitos:
 - Python 3.x instalado.
 - Bibliotecas cx_Oracle: Para conectar o Python ao Oracle, instale via pip install cx_Oracle.
 - import oracledb
 - import pandas as pd
-- import matplotlib.pyplot
 - Wokwi: Para compilar e enviar o código ao ESP32.
 - Conta no Oracle Database (pode ser local ou na nuvem).
 
 ### Como Configurar e Rodar o Projeto
-
 1. Configuração do Circuito no Wokwi
 Acesse Wokwi e configure o circuito conforme descrito abaixo:
-- Copie o Arquivo diagram.json para obter o ESP e os outros componentes.
+- Copie o Arquivo diagram.json para obter o ESP32 e demais componentes.
 - Carregue o código sketch.ino no ESP32 para monitorar os sensores.
+- Atualize a Library com o que seja necessário.
+- Compile e execute o codigo.
 - Abra o Monitor Serial para visualizar os dados dos sensores.
 
 2. Exportação dos Dados
 - Copie os dados do Monitor Serial do Wokwi e cole no arquivo Arduino.csv localizado na pasta dados.
 - Ajuste os dados conforme necessário para simular um cenário real.
   
-3. Script Python - Codigo_Pyhton_consultaBD.py
-- Abra o arquivo Codigo_Pyhton_consultaBD.py e configure a conexão com o banco de dados com os parâmetros corretos.
+3. Script Python - ESP32_DataLoad.py
+- Abra o arquivo ESP32_DataLoad.py e configure a conexão com o banco de dados com os parâmetros corretos.
 - Execute o script para importar dados do arquivo CSV e realizar operações CRUD.
 
+4. Script Python - ESP32_DataLoad.py
+- Abra o arquivo FarmTech_MachineLearning.py e configure a conexão com o banco de dados com os parâmetros corretos.
+- Execute o script para importar os dados do Oracle para um DataFrame no Pandas e utilizar as bibliotecas SciKit-Learn e Streamlit.
 
 ## Lógica de Decisão da Irrigação
 A bomba de irrigação é acionada com base na Umidade (se a umidade do solo estiver abaixo de um certo limite, a irrigação é ligada).
@@ -156,14 +160,15 @@ Cada critério pode ser ajustado para otimizar o uso da água, economizando recu
 
 ## Documentação Adicional
 
-O vídeo de demonstração do projeto está disponível aqui: [https://www.youtube.com/watch?v=7aTtdq6nKZQ].
+O vídeo de demonstração do projeto está disponível aqui: XXXXXXXXXX
 
 ## Tecnologias Utilizadas
 - Microcontrolador ESP32
 - Python 3.x
 - Oracle Database
 - Arduino IDE
-- Matplotlib
+- SciKit-Learn;
+- StreamLit;
 - Wokwi
 
 ## Conclusão
