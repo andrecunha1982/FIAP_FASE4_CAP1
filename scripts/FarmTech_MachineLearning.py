@@ -1,7 +1,5 @@
 import oracledb
 import pandas as pd
-import matplotlib.pyplot as plt
-from datetime import datetime
 
 # Conexão com o Oracle
 def conectar_oracle():
@@ -26,24 +24,28 @@ def ler_dados(conn):
     select_sql = "SELECT * FROM FASE04_SENSORES"
     try:
         cursor.execute(select_sql)
+        # Coletando os dados e os nomes das colunas
+        columns = [desc[0] for desc in cursor.description]  # Nome das colunas
         rows = cursor.fetchall()
-        for row in rows:
-            print(row)
+        # Criando o DataFrame
+        df = pd.DataFrame(rows, columns=columns)
+        return df
     except oracledb.DatabaseError as e:
         print(f"Erro ao ler os dados: {e}")
+        return None
     finally:
         cursor.close()
-
 
 # Função principal
 def main():
     conn = conectar_oracle()
     if conn:
-        ler_dados(conn)
-
+        df = ler_dados(conn)
+        if df is not None:
+            print("Dados carregados com sucesso no DataFrame!")
+            print(df)  # Exibe o DataFrame
         conn.close()
         print("Conexão com o banco de dados encerrada.")
-
 
 if __name__ == "__main__":
     main()

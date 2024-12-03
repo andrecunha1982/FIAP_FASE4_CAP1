@@ -121,7 +121,7 @@ def main():
     if conn:
         criar_tabela(conn)
 
-        df = carregar_dados_csv(r"C:\Users\I566457\OneDrive - SAP SE\Desktop\Arduino.csv")
+        df = carregar_dados_csv('dados/Arduino.csv')
         inserir_dados_csv(conn, df)
 
         # Ler dados inseridos (opcional)
