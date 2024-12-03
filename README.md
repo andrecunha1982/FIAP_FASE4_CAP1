@@ -18,6 +18,7 @@ Monitoramento com Serial Plotter: implementação do Serial Plotter para monitor
 Otimização de Memória no ESP32: revisão e otimização do uso das variáveis no código C/C++ do ESP32.
 
 ## Estrutura do Projeto:
+
 📂 fase04
 │
 ├── 📁 circuito
@@ -36,44 +37,56 @@ Otimização de Memória no ESP32: revisão e otimização do uso das variáveis
 └── README.md                     # Documentação do projeto
 
 ## Componentes do Projeto
-1. Sensores (Simulados no Wokwi)
-Umidade: Sensor DHT22.
-pH: Sensor de intensidade de luz (LDR) simula o sensor de pH.
-Nutrientes P e K: Simulados com botões, representando valores booleanos de presença ou ausência.
-Relé: Representa a bomba de irrigação.
-RTC: Módulo RTC para controle de data e hora de cada registro;
+### 1. Sensores (Simulados no Wokwi)
+- Umidade: Sensor DHT22.
+
+- pH: Sensor de intensidade de luz (LDR) simula o sensor de pH.
+
+- Nutrientes P e K: Simulados com botões, representando valores booleanos de presença ou ausência.
+
+- Relé: Representa a bomba de irrigação.
+
+- RTC: Módulo RTC para controle de data e hora de cada registro;
  
-2. Microcontrolador ESP32
+### 2. Microcontrolador ESP32
 O ESP32 coleta os dados dos sensores e determina quando a bomba d’água deve ser acionada. O código foi implementado em C++ e simulado na plataforma Wokwi.
 ![image](https://github.com/user-attachments/assets/dc25bdb1-cb25-4d4a-b729-2ee270780969)
+
 O projeto pode ser executado neste [link](https://wokwi.com/projects/416204742855791617)
 
-### **Alterações e Justificativas com relação a Fase 03:**
+**Alterações e Justificativas com relação a Fase 03:**
+
 Com o apoio de Inteligencia Artificial Generativa, foi executada uma revisão de código com o objetivo de realizar otimizações quando utilizar tipos de dados inteiros, floats e chars para economizar memória, garantindo que o sistema rode de maneira mais eficiente. Como resultado dessa análise tivemos: 
 
-**Uso de tipos de dados otimizados:**
+- **Uso de tipos de dados otimizados:**
     - Substituí float por int16_t ou uint16_t sempre que possível, convertendo os valores apenas para exibição (caso necessário) para economizar memória.
     - Substituí String por char arrays e snprintf para manipular strings, evitando fragmentação de heap.
-**Uso de macros e constantes:**
+    
+- **Uso de macros e constantes:**
     - Defini constantes para evitar cálculos repetitivos no código.
     - Usei const ao invés de variáveis globais mutáveis, quando aplicável.
-**Redução de operações desnecessárias no loop:**
+    
+- **Redução de operações desnecessárias no loop:**
     - Mantenho cálculos mínimos e reutilizo valores calculados anteriormente.
-**Otimização do cálculo do pH:**
+    
+- **Otimização do cálculo do pH:**
     - Transformei a escala de pH em uint8_t por ser uma escala discreta e limitada a valores entre 0 e 14.
 
 **Benefícios da otimização**
-**Memória:** A substituição de String por char arrays reduz fragmentação da memória e melhora desempenho.
-**Desempenho:** Tipos como uint8_t e uint16_t economizam memória comparado a int ou float, especialmente em sistemas embarcados.
-**Legibilidade:** O uso de snprintf organiza melhor a formatação e evita overhead do objeto String.
 
-3. Banco de Dados Oracle
+- **Memória:** A substituição de String por char arrays reduz fragmentação da memória e melhora desempenho.
+
+- **Desempenho:** Tipos como uint8_t e uint16_t economizam memória comparado a int ou float, especialmente em sistemas embarcados.
+
+- **Legibilidade:** O uso de snprintf organiza melhor a formatação e evita overhead do objeto String.
+
+### 3. Banco de Dados Oracle
 O banco de dados Oracle armazena os dados dos sensores e os registros de acionamento do relé. A integração é feita através do script Python Codigo_Pyhton_consultaBD.py, que realiza operações CRUD.
 
 ############################## EM REVISÃO
 
 
-5. Dashboard 
+### 5. Dashboard 
 Para visualização dos dados, foi criado um dashboard com a  biblioteca matplotlib dentro do codigo pyhton:
 
 ![Captura de tela 2024-11-13 101959](https://github.com/user-attachments/assets/ba1efe27-fdfb-492a-adcb-ded18bde056d)
