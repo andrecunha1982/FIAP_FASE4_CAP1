@@ -27,7 +27,7 @@ bool potassioPresente = false;
 bool irrigationOn = false;
 
 // Buffer para manipulação de strings
-char info[128];
+char info[128]; // (otimizado para char para manipular strings, evitando fragmentação de heap)
 
 void setup() {
   // Inicializando comunicação Serial
@@ -72,7 +72,7 @@ void loop() {
   // Leitura de sensores
   float h = dht.readHumidity(); // Leitura de umidade
   float t = dht.readTemperature(); // Leitura de temperatura
-  uint16_t ldrValue = analogRead(LDR_PIN); // Leitura do sensor LDR
+  uint16_t ldrValue = analogRead(LDR_PIN); // Leitura do sensor LDR (otimizado para uint16_t)
   uint8_t ph = map(ldrValue, 0, 4095, 0, 14); // Conversão do valor para pH (otimizado para uint8_t)
 
   // Leitura dos botões
@@ -102,7 +102,7 @@ void loop() {
   lcd.setCursor(0, 3);
   lcd.printf("Irrigacao: %s", irrigationOn ? "ON" : "OFF");
 
-  // Montando a string para Serial (substitui String por snprintf)
+  // Montando a string para Serial (substitui String por snprintf para manipular strings, evitando fragmentação de heap.)
   snprintf(info, sizeof(info), "%04d/%02d/%02d %02d:%02d:%02d;%.1f;%.1f;%d;%d;%d;%d", 
            now.year(), now.month(), now.day(), now.hour(), now.minute(), now.second(), 
            t, h, ph, fosforoPresente, potassioPresente, irrigationOn);

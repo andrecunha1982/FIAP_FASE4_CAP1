@@ -48,6 +48,25 @@ O ESP32 coleta os dados dos sensores e determina quando a bomba d’água deve s
 ![image](https://github.com/user-attachments/assets/dc25bdb1-cb25-4d4a-b729-2ee270780969)
 O projeto pode ser executado neste [link](https://wokwi.com/projects/416204742855791617)
 
+### **Alterações e Justificativas com relação a Fase 03:**
+Com o apoio de Inteligencia Artificial Generativa, foi executada uma revisão de código com o objetivo de realizar otimizações quando utilizar tipos de dados inteiros, floats e chars para economizar memória, garantindo que o sistema rode de maneira mais eficiente. Como resultado dessa análise tivemos: 
+
+**Uso de tipos de dados otimizados:**
+    - Substituí float por int16_t ou uint16_t sempre que possível, convertendo os valores apenas para exibição (caso necessário) para economizar memória.
+    - Substituí String por char arrays e snprintf para manipular strings, evitando fragmentação de heap.
+**Uso de macros e constantes:**
+    - Defini constantes para evitar cálculos repetitivos no código.
+    - Usei const ao invés de variáveis globais mutáveis, quando aplicável.
+**Redução de operações desnecessárias no loop:**
+    - Mantenho cálculos mínimos e reutilizo valores calculados anteriormente.
+**Otimização do cálculo do pH:**
+    - Transformei a escala de pH em uint8_t por ser uma escala discreta e limitada a valores entre 0 e 14.
+
+**Benefícios da otimização**
+**Memória:** A substituição de String por char arrays reduz fragmentação da memória e melhora desempenho.
+**Desempenho:** Tipos como uint8_t e uint16_t economizam memória comparado a int ou float, especialmente em sistemas embarcados.
+**Legibilidade:** O uso de snprintf organiza melhor a formatação e evita overhead do objeto String.
+
 3. Banco de Dados Oracle
 O banco de dados Oracle armazena os dados dos sensores e os registros de acionamento do relé. A integração é feita através do script Python Codigo_Pyhton_consultaBD.py, que realiza operações CRUD.
 
