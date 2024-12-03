@@ -20,20 +20,35 @@ Otimização de Memória no ESP32: revisão e otimização do uso das variáveis
 ## Estrutura do Projeto:
 
 📂 fase04
+
 │
+
 ├── 📁 circuito
+
 │   └── sketch.ino         # Código C++ para ESP32
+
 │   └── diagram.json       # Diagrama do projeto para Wokwi
+
 │   └── libraries.txt      # Bibliotecas C++ utilizadas no projeto
+
 │   └── Video Youtube.txt  # Link do video do funcionamento do projeto
+
 │   └── wokwi-project.txt  # Link para emulação do projeto no Wokwi.com
+
 │
+
 ├── 📁 dados
+
 │   └── Arduino.csv        # Dados coletados dos sensores no formato CSV
+
 │
+
 ├── 📁 scripts
+
 │   └── Codigo_Pyhton_consultaBD.py         # Script Python para integração com o banco de dados Oracle
+
 │
+
 └── README.md                     # Documentação do projeto
 
 ## Componentes do Projeto
@@ -83,7 +98,7 @@ Com o apoio de Inteligencia Artificial Generativa, foi executada uma revisão de
 ### 3. Banco de Dados Oracle
 O banco de dados Oracle armazena os dados dos sensores e os registros de acionamento do relé. A integração é feita através do script Python Codigo_Pyhton_consultaBD.py, que realiza operações CRUD.
 
-############################## EM REVISÃO
+**############################## EM REVISÃO ##############################**
 
 
 ### 5. Dashboard 
