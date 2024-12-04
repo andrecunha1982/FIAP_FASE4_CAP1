@@ -78,18 +78,18 @@ O projeto pode ser executado neste [link](https://wokwi.com/projects/41620474285
 Com o apoio de Inteligencia Artificial Generativa, foi executada uma revisão de código com o objetivo de realizar otimizações quando utilizar tipos de dados inteiros, floats e chars para economizar memória, garantindo que o sistema rode de maneira mais eficiente. Como resultado dessa análise tivemos: 
 
 - **Uso de tipos de dados otimizados:**
-    - Substituí float por int16_t ou uint16_t sempre que possível, convertendo os valores apenas para exibição (caso necessário) para economizar memória.
-    - Substituí String por char arrays e snprintf para manipular strings, evitando fragmentação de heap.
+    - Substituimos float por int16_t ou uint16_t sempre que possível, convertendo os valores apenas para exibição (caso necessário) para economizar memória.
+    - Substituimos String por char arrays e snprintf para manipular strings, evitando fragmentação de heap.
     
 - **Uso de macros e constantes:**
-    - Defini constantes para evitar cálculos repetitivos no código.
-    - Usei const ao invés de variáveis globais mutáveis, quando aplicável.
+    - Definimos constantes para evitar cálculos repetitivos no código.
+    - Usamos const ao invés de variáveis globais mutáveis, quando aplicável.
     
 - **Redução de operações desnecessárias no loop:**
-    - Mantenho cálculos mínimos e reutilizo valores calculados anteriormente.
+    - Mantivemos cálculos mínimos com reutilização de valores calculados anteriormente.
     
 - **Otimização do cálculo do pH:**
-    - Transformei a escala de pH em uint8_t por ser uma escala discreta e limitada a valores entre 0 e 14.
+    - Transformamos a escala de pH em uint8_t por ser uma escala discreta e limitada a valores entre 0 e 14.
 
 **Benefícios da otimização**
 
@@ -158,7 +158,7 @@ Acesse Wokwi e configure o circuito conforme descrito abaixo:
 
 ## Documentação Adicional
 
-O vídeo de demonstração do projeto está disponível aqui: XXXXXXXXXX
+O vídeo de demonstração do projeto está disponível neste [link](https://youtu.be/7orQ5bhX5-E)
 
 ## Tecnologias Utilizadas
 - Microcontrolador ESP32
