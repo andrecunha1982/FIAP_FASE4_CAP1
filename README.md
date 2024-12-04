@@ -67,7 +67,9 @@ Otimização de Memória no ESP32: revisão e otimização do uso das variáveis
  
 ### 2. Microcontrolador ESP32
 O ESP32 coleta os dados dos sensores e determina quando a bomba d’água deve ser acionada. O código foi implementado em C++ e simulado na plataforma Wokwi.
-![image](https://github.com/user-attachments/assets/dc25bdb1-cb25-4d4a-b729-2ee270780969)
+![image](https://github.com/user-attachments/assets/a11cf4cf-9b23-408f-bffb-6ac6d31101f6)
+
+Veja que na parte inferior da tela o Monitor Serial já apresenta as informações em um formato para facilitar a copia dos dados e utiliza-los em um arquivo CSV para posterior carga em banco de dados.
 
 O projeto pode ser executado neste [link](https://wokwi.com/projects/416204742855791617)
 
@@ -137,17 +139,21 @@ Acesse Wokwi e configure o circuito conforme descrito abaixo:
 - Compile e execute o codigo.
 - Abra o Monitor Serial para visualizar os dados dos sensores.
 
+
 2. Exportação dos Dados
 - Copie os dados do Monitor Serial do Wokwi e cole no arquivo Arduino.csv localizado na pasta dados.
 - Ajuste os dados conforme necessário para simular um cenário real.
-  
+
+
 3. Script Python - ESP32_DataLoad.py
 - Abra o arquivo ESP32_DataLoad.py e configure a conexão com o banco de dados com os parâmetros corretos.
 - Execute o script para importar dados do arquivo CSV e realizar operações CRUD.
 
+
 4. Script Python - FarmTech_MachineLearning.py
 - Garanta que todas as bibliotecas necessárias no codigo estejam instaladas;
-- No terminal navegue até a pasta onde o arquivo python está localizado e execute o seguinte comando: `streamlit run FarmTech_MachineLearning.py`;
+- No terminal navegue até a pasta onde o arquivo python está localizado;
+- Execute o seguinte comando: `streamlit run FarmTech_MachineLearning.py`;
 - A aplicação será aberta em seu navegador padrão;
 
 ## Documentação Adicional
