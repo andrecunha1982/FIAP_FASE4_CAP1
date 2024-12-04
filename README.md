@@ -106,7 +106,7 @@ O banco de dados Oracle armazena os dados dos sensores e os registros de acionam
 Foram gerados dois scripts Python: 
 - ESP32_DataLoad.py: Script Python para carregar os dados de um CSV (informações extraidas do Monitor Serial do Wokwi)
 - FarmTech_MachineLearning.py: Script Python para buscar os dados no banco Oracle e jogar em um DataFrame Pandas para aplicar as bibliotecas SciKit-Learn e Streamlit
-- 
+  
 ## Funcionamento
 ESP32:
 - No Wokwi, utiliza-se os arquivos da pasta circuito para configuração do hardware;
@@ -131,30 +131,31 @@ Utilização de Machine Learning;
 - Conta no Oracle Database (pode ser local ou na nuvem).
 
 ### Como Configurar e Rodar o Projeto
-1. Configuração do Circuito no Wokwi
-Acesse Wokwi e configure o circuito conforme descrito abaixo:
-- Copie o Arquivo diagram.json para obter o ESP32 e demais componentes.
-- Carregue o código sketch.ino no ESP32 para monitorar os sensores.
-- Atualize a Library com o que seja necessário.
-- Compile e execute o codigo.
-- Abra o Monitor Serial para visualizar os dados dos sensores.
+**1. Configuração do Circuito no Wokwi:**
 
+    - Acesse Wokwi e configure o circuito conforme descrito abaixo:
+    - Copie o Arquivo diagram.json para obter o ESP32 e demais componentes.
+    - Carregue o código sketch.ino no ESP32 para monitorar os sensores.
+    - Atualize a Library com o que seja necessário.
+    - Compile e execute o codigo.
+    - Abra o Monitor Serial para visualizar os dados dos sensores.
 
-2. Exportação dos Dados
-- Copie os dados do Monitor Serial do Wokwi e cole no arquivo Arduino.csv localizado na pasta dados.
-- Ajuste os dados conforme necessário para simular um cenário real.
+**2. Exportação dos Dados:**
 
+    - Copie os dados do Monitor Serial do Wokwi e cole no arquivo Arduino.csv localizado na pasta dados.
+    - Ajuste os dados conforme necessário para simular um cenário real.
 
-3. Script Python - ESP32_DataLoad.py
-- Abra o arquivo ESP32_DataLoad.py e configure a conexão com o banco de dados com os parâmetros corretos.
-- Execute o script para importar dados do arquivo CSV e realizar operações CRUD.
+**3. Script Python - ESP32_DataLoad.py:**
 
+    - Abra o arquivo ESP32_DataLoad.py e configure a conexão com o banco de dados com os parâmetros corretos.
+    - Execute o script para importar dados do arquivo CSV e realizar operações CRUD.
 
-4. Script Python - FarmTech_MachineLearning.py
-- Garanta que todas as bibliotecas necessárias no codigo estejam instaladas;
-- No terminal navegue até a pasta onde o arquivo python está localizado;
-- Execute o seguinte comando: `streamlit run FarmTech_MachineLearning.py`;
-- A aplicação será aberta em seu navegador padrão;
+**4. Script Python - FarmTech_MachineLearning.py:**
+
+    - Garanta que todas as bibliotecas necessárias no codigo estejam instaladas;
+    - No terminal navegue até a pasta onde o arquivo python está localizado;
+    - Execute o seguinte comando: `streamlit run FarmTech_MachineLearning.py`;
+    - A aplicação será aberta em seu navegador padrão;
 
 ## Documentação Adicional
 
