@@ -47,7 +47,7 @@ Otimização de Memória no ESP32: revisão e otimização do uso das variáveis
 
 │   └── ESP32_DataLoad.py              # Script Python para carregar os dados de um CSV (informações extraidas do Monitor Serial do Wokwi)
 
-│   └── FarmTech_MachineLearning.py    # Script Python para buscar os dados no banco Oracle e jogar em um DataFrame Pandas para aplicar as bibliotecas SciKit-Learn e Streamlite
+│   └── FarmTech_MachineLearning.py    # Script Python para buscar os dados no banco Oracle, jogar em um DataFrame Pandas e aplica as bibliotecas SciKit-Learn e Streamlite
 
 │
 
@@ -118,7 +118,7 @@ Integração com Banco de Dados Oracle (Script Python):
 
 Utilização de Machine Learning;
 - O arquivo FarmTech_MachineLearning.py conecta-se ao banco de dados Oracle;
-- A partir dos dados do Banco gera um DataFrame em pandas para facilitar a utilização da biblioteca SciKit-Learn e Streamlit
+- A partir dos dados do Banco gera um DataFrame em pandas para facilitar a aplicação das bibliotecas SciKit-Learn e Streamlit
 
 ### Pré-requisitos:
 - Python 3.x instalado.
@@ -145,18 +145,10 @@ Acesse Wokwi e configure o circuito conforme descrito abaixo:
 - Abra o arquivo ESP32_DataLoad.py e configure a conexão com o banco de dados com os parâmetros corretos.
 - Execute o script para importar dados do arquivo CSV e realizar operações CRUD.
 
-4. Script Python - ESP32_DataLoad.py
-- Abra o arquivo FarmTech_MachineLearning.py e configure a conexão com o banco de dados com os parâmetros corretos.
-- Execute o script para importar os dados do Oracle para um DataFrame no Pandas e utilizar as bibliotecas SciKit-Learn e Streamlit.
-
-## Lógica de Decisão da Irrigação
-A bomba de irrigação é acionada com base na Umidade (se a umidade do solo estiver abaixo de um certo limite, a irrigação é ligada).
-
-Níveis de P e K: Se ambos os botões estiverem pressionados, o sistema assume níveis baixos de nutrientes.
-
-pH: O sensor LDR simula o pH e, dependendo da intensidade da luz, determina o nível de acidez do solo.
-
-Cada critério pode ser ajustado para otimizar o uso da água, economizando recursos e maximizando a produtividade.
+4. Script Python - FarmTech_MachineLearning.py
+- Garanta que todas as bibliotecas necessárias no codigo estejam instaladas;
+- No terminal navegue até a pasta onde o arquivo python está localizado e execute o seguinte comando: `streamlit run FarmTech_MachineLearning.py`;
+- A aplicação será aberta em seu navegador padrão;
 
 ## Documentação Adicional
 
@@ -169,7 +161,7 @@ O vídeo de demonstração do projeto está disponível aqui: XXXXXXXXXX
 - Arduino IDE
 - SciKit-Learn;
 - StreamLit;
-- Wokwi
+- Wokwi;
 
 ## Conclusão
 Este projeto demonstra como conectar sensores físicos a uma plataforma digital para otimizar a irrigação agrícola, integrando dados de sensores a um banco de dados e criando um sistema de irrigação inteligente. Essa solução é uma contribuição para o avanço da FarmTech Solutions, com foco na eficiência de recursos hídricos e melhoria da produção agrícola.
