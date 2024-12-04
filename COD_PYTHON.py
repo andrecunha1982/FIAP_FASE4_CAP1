@@ -106,3 +106,16 @@ st.sidebar.write(f"Previsão de Ação: {'Irrigar' if predicted_action == 1 else
 
 
 st.success("O sistema está pronto para uso! Explore os gráficos e faça previsões com base nos seus parâmetros.")
+
+
+
+# Passos para Executar o Streamlit
+#Abra o terminal ou prompt de comando.
+
+#Navegue até o diretório onde está o seu script:
+
+#cd "C:/Users/Amanda/OneDrive/Área de Trabalho/FASE04_CAP1/CAP1_FASE4" (de acordo o caminho do arquivo em seu computador)
+#Execute o script com o Streamlit:
+
+#streamlit run COD_PYTHON.py
+#
